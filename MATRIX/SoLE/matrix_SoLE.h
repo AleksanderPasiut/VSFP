@@ -9,7 +9,7 @@
 template<typename T>
 class MATRIX_SoLE
 {
-protected:
+public: //protected:
 	static MATRIX<T>& diagonal(MATRIX<T>&);
 	static MATRIX<T>& nondiagonal(MATRIX<T>&);
 	static MATRIX<T>& upper(MATRIX<T>&);
@@ -18,6 +18,7 @@ protected:
 	static MATRIX<T>& jordan_elimination(MATRIX<T>&);
 	static MATRIX<T>& diagonal_matrix_inverse(MATRIX<T>&);
 	static MATRIX<T> lower_triangular_matrix_inverse(const MATRIX<T>&);
+	static MATRIX<T>& shuffle_for_diagonal_domination(MATRIX<T>&, MATRIX<T>&);
 
 	static T diagonal_elements_product(const MATRIX<T>&);
 

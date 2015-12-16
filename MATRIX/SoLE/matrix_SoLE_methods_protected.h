@@ -147,3 +147,36 @@ T MATRIX_SoLE<T>::diagonal_elements_product(const MATRIX<T>& matrix)
 
 	return ret;
 }
+
+template <typename T>
+MATRIX<T>& MATRIX_SoLE<T>::shuffle_for_diagonal_domination(MATRIX<T>& matrix, MATRIX<T>& vector)
+{
+	// This method swaps rows in the matrix to put the biggest absolute value elements onto diagonal.
+	// It is used in Jacoby solver, Gauss-Seidl solver and SOR solver.
+
+	for (unsigned i = 0; i+1 < matrix.rows(); i++)
+	{
+		unsigned tbei = i;
+		T value = abs(matrix.field(i,i));
+
+		// searching for the biggest element
+		for (unsigned j = i+1; j < matrix.rows(); j++)
+			if (abs(matrix.field(j,i)) > value)
+			{	value = abs(matrix.field(j,i));
+				tbei = j;	}
+
+		if (tbei != i)
+		{
+			T tmp;
+			for (unsigned j = 0; j < matrix.cols(); j++)
+			{	tmp = matrix.field(i,j);
+				matrix.field(i,j) = matrix.field(tbei,j);
+				matrix.field(tbei,j) = tmp;	}
+
+			tmp = vector.field(i,0);
+			vector.field(i,0) = vector.field(tbei,0);
+			vector.field(tbei,0) = tmp;
+		}
+	}
+	return matrix;
+}

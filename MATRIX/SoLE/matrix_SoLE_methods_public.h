@@ -12,7 +12,6 @@ MATRIX<T> MATRIX_SoLE<T>::matrix_inverse(const MATRIX<T>& matrix)
 
 	for (unsigned i = 0; i+1 < tmp.cols(); i++)
 	{
-		/*
 		if (tmp.field(i,i) == 0)
 			for (unsigned j = i+1; j < tmp.rows(); j++)
 				if (tmp.field(j,i) != 0)
@@ -22,7 +21,7 @@ MATRIX<T> MATRIX_SoLE<T>::matrix_inverse(const MATRIX<T>& matrix)
 						tmp.field(j,k) = t;
 						t = ret.field(i,k);
 						ret.field(i,k) = ret.field(j,k);
-						ret.field(j,k) = t; }*/
+						ret.field(j,k) = t; }
 
 		if (tmp.field(i,i) != 0)
 			for (unsigned j = i+1; j < tmp.rows(); j++)
@@ -39,17 +38,18 @@ MATRIX<T> MATRIX_SoLE<T>::matrix_inverse(const MATRIX<T>& matrix)
 
 	if (diagonal_elements_product(tmp) == 0)
 		throw std::logic_error("Matrix is not invertible.");
-
+	
 	for (unsigned i = tmp.cols()-1; i > 0; i--)
-	{
 		for (unsigned j = 0; j < i; j++)
 		{
 			T multiplier = tmp.field(j,i)/tmp.field(i,i);
 			for (unsigned k = 0; k < ret.cols(); k++)
-			{	ret.field(j,k) -= multiplier*ret.field(i,i);
-				ret.field(j,k) /= tmp.field(j,j); }
+				ret.field(j,k) -= multiplier*ret.field(i,k);
 		}
-	}
+
+	for (unsigned i = 0; i < tmp.rows(); i++)
+		for (unsigned j = 0; j < tmp.cols(); j++)
+			ret.field(i,j) /= tmp.field(i,i);
 
 	return ret;
 }
@@ -139,7 +139,8 @@ MATRIX<T> MATRIX_SoLE<T>::jacoby_solver(const MATRIX<T>& matrix, const MATRIX<T>
 		throw std::logic_error("Precision cannot be negative.");
 
 	MATRIX<T> m = matrix;
-	MATRIX<T> vec = diagonal_matrix_inverse(diagonal(m))*vector;
+	MATRIX<T> v2 = vector;
+	MATRIX<T> vec = diagonal_matrix_inverse(diagonal(shuffle_for_diagonal_domination(m, v2)))*v2;
 	MATRIX<T> LU = matrix;
 	m *= nondiagonal(LU)*(-1);
 
@@ -179,7 +180,8 @@ MATRIX<T> MATRIX_SoLE<T>::gauss_seidl_solver(const MATRIX<T>& matrix, const MATR
 		throw std::logic_error("Precision cannot be negative.");
 
 	MATRIX<T> mGS = matrix;
-	MATRIX<T> vec = lower_triangular_matrix_inverse(nonupper(mGS))*vector;
+	MATRIX<T> v2 = vector;
+	MATRIX<T> vec = lower_triangular_matrix_inverse(nonupper(shuffle_for_diagonal_domination(mGS, v2)))*v2;
 	MATRIX<T> up = matrix;
 	mGS *= upper(up) * (-1);
 
