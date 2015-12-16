@@ -1,3 +1,5 @@
+// This file provides additional names for basic types.
+
 #pragma once
 
 typedef unsigned __int8 U8;
