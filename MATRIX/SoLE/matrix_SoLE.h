@@ -9,7 +9,7 @@
 template<typename T>
 class MATRIX_SoLE
 {
-public: //protected:
+protected:
 	static MATRIX<T>& diagonal(MATRIX<T>&);
 	static MATRIX<T>& nondiagonal(MATRIX<T>&);
 	static MATRIX<T>& upper(MATRIX<T>&);

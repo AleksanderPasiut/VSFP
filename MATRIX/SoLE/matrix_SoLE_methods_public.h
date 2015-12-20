@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 template <typename T>
 MATRIX<T> MATRIX_SoLE<T>::matrix_inverse(const MATRIX<T>& matrix)
 {
@@ -203,7 +205,6 @@ MATRIX<T> MATRIX_SoLE<T>::gauss_seidl_solver(const MATRIX<T>& matrix, const MATR
 		approx2 = tmp;
 	}
 	return *approx2;
-
 }
 
 template <typename T>

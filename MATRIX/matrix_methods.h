@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 template<typename T>
 MATRIX<T>::MATRIX(unsigned rows, unsigned cols)
 {

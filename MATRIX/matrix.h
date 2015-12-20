@@ -1,10 +1,8 @@
 // This file provides MATRIX template class which is used to represent matrix with 
 // scalars of variable type. It also provides basic operations such as addition,
-// multiplication, size changing, combining ...
+// multiplication, size changing, combining, etc.
 
 #pragma once
-
-#include <stdexcept>
 
 template<typename T>
 class MATRIX

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 template<typename T>
 MATRIX<T>& MATRIX_SoLE<T>::diagonal(MATRIX<T>& matrix)
 {

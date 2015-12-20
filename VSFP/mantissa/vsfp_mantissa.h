@@ -7,7 +7,7 @@
 
 class VSFP_MANTISSA
 {
-public:	// temporarily
+public:	// protected:
 	U64* mantissa;
 	U16 mantissa_size;
 
@@ -18,14 +18,14 @@ public:
 	~VSFP_MANTISSA();
 
 	void zero();
-	bool change_size(U16 new_size);
+	void change_size(U16 new_size);
 	U16 size() const { return mantissa_size; }
 
 	VSFP_MANTISSA& operator<< (U16 shift);
 	VSFP_MANTISSA& operator>> (U16 shift);
 
-	U8 add(const VSFP_MANTISSA&);
-	U8 sub(const VSFP_MANTISSA&);
-	U8 mul(const VSFP_MANTISSA&);
-	U8 div(const VSFP_MANTISSA&);
+	U8 operator+= (const VSFP_MANTISSA&);
+	U8 operator-= (const VSFP_MANTISSA&);
+	U8 operator*= (const VSFP_MANTISSA&);
+	U8 operator/= (const VSFP_MANTISSA&);
 };
