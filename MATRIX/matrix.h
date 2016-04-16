@@ -35,10 +35,12 @@ public:
 	MATRIX<T> operator- (const T&) const;
 	MATRIX<T> operator* (const T&) const;
 
-	T& field(unsigned row, unsigned col);
-	const T& field(unsigned row, unsigned col) const;
+	T& field(unsigned row, unsigned col = 0);
+	const T& field(unsigned row, unsigned col = 0) const;
 
 	MATRIX<T>& change_size(unsigned rows, unsigned cols);
+	MATRIX<T>& remove_rows(unsigned first, unsigned amount = 1);
+	MATRIX<T>& remove_cols(unsigned first, unsigned amount = 1);
 
 	MATRIX<T>& row_combine(const MATRIX<T>& arg);
 	MATRIX<T>& col_combine(const MATRIX<T>& arg);

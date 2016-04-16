@@ -241,6 +241,63 @@ MATRIX<T>& MATRIX<T>::change_size(unsigned rows, unsigned cols)
 }
 
 template<typename T>
+MATRIX<T>& MATRIX<T>::remove_rows(unsigned first, unsigned amount)
+{
+	if (!amount)
+		throw std::logic_error("Amount is zero.");
+
+	if (!first && amount == rows_amount)
+		throw std::logic_error("Amount is equal rows amount.");
+
+	if (first+amount > rows_amount)
+		throw std::logic_error("There are not enough rows to delete.");
+
+	T** new_table = new T* [rows_amount-amount];
+	unsigned i = 0;
+	for (; i < first; i++)
+		new_table[i] = table[i];
+	for (; i < first+amount; i++)
+		delete[] table[i];
+	for (; i < rows_amount; i++)
+		new_table[i-amount] = table[i];
+
+	delete[] table;
+	table = new_table;
+	rows_amount -= amount;
+	return *this;
+}
+
+template<typename T>
+MATRIX<T>& MATRIX<T>::remove_cols(unsigned first, unsigned amount)
+{
+	if (!amount)
+		throw std::logic_error("Amount is zero.");
+
+	if (!first && amount == cols_amount)
+		throw std::logic_error("Amount is equal cols amount.");
+
+	if (first+amount > cols_amount)
+		throw std::logic_error("There are not enough cols to delete.");
+
+	for (unsigned i = 0; i < rows_amount; i++)
+	{
+		T* new_row = new T[cols_amount-amount];
+		unsigned j = 0;
+		for (; j < first; j++)
+			new_row[j] = table[i][j];
+		j += amount;
+		for (; j < cols_amount; j++)
+			new_row[j-amount] = table[i][j];
+
+		delete[] table[i];
+		table[i] = new_row;
+	}
+
+	cols_amount -= amount;
+	return *this;
+}
+
+template<typename T>
 MATRIX<T>& MATRIX<T>::row_combine(const MATRIX<T>& arg)
 {
 	if (cols_amount != arg.cols_amount)

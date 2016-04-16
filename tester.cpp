@@ -17,6 +17,18 @@ int main()
 {
 	cout.precision(20);
 
+	if (true)
+	{
+		MATRIX<double> a(5,5);
+		cout << "podaj macierz" << endl;
+		cin >> a;
+		
+		a.remove_rows(1, 2);
+		cout << a << endl;
+		a.remove_cols(2, 2);
+		cout << a << endl;
+	}
+
 	if (false)
 	{
 		MATRIX<double> a(5,5);
@@ -54,7 +66,7 @@ int main()
 		cout << m;
 	}
 
-	if (true)
+	if (false)
 	{
 		double root;
 		unsigned counter;
@@ -63,7 +75,7 @@ int main()
 		cout << "bisection solver" << endl;
 		try
 		{
-			root = NLES<double>::bisection_solver(f, 0, 2, 0.00000001, 100, &counter);
+			root = NLES<double>::bisection_solver(f, 0, 2, 0.00000000001, 100, &counter);
 			cout << "root = " << root << endl;
 			cout << "f(root) = " << f(root) << endl;
 			cout << "iterations = " << counter << endl;
@@ -73,7 +85,7 @@ int main()
 		cout << "tangent solver" << endl;
 		try
 		{
-			root = NLES<double>::tangent_solver(f, fp, 2, 0.00000001, 100, &counter);
+			root = NLES<double>::tangent_solver(f, fp, 2, 0.00000000001, 100, &counter);
 			cout << "root = " << root << endl;
 			cout << "f(root) = " << f(root) << endl;
 			cout << "iterations = " << counter << endl;
@@ -83,7 +95,7 @@ int main()
 		cout << "regula falsi solver" << endl;
 		try
 		{
-			root = NLES<double>::regula_falsi_solver(f, 0, 2, 0.00000001, 100, &counter);
+			root = NLES<double>::regula_falsi_solver(f, 0, 2, 0.00000000001, 100, &counter);
 			cout << "root = " << root << endl;
 			cout << "f(root) = " << f(root) << endl;
 			cout << "iterations = " << counter << endl;
@@ -93,7 +105,7 @@ int main()
 		cout << "secant solver" << endl;
 		try
 		{
-			root = NLES<double>::secant_solver(f, 2, 0, 0.00000001, 100, &counter);
+			root = NLES<double>::secant_solver(f, 2, 0, 0.00000000001, 100, &counter);
 			cout << "root = " << root << endl;
 			cout << "f(root) = " << f(root) << endl;
 			cout << "iterations = " << counter << endl;
